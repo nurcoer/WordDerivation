@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import PermissonModal from '../toolbox/modals/PermissionsModal';
 import { addMinutesToDate, getNow, getRemainingDate } from '../../helpers/date';
 import { FORECAST_TIME } from '../../constans';
 import '../../styles/timerEl.css';
@@ -10,9 +11,13 @@ export default class TimerEL extends Component {
     this.state = {
       timer: 0.10,
       timerText: 'sn',
-      gameStatus: 'Start',
+      gameStatus: 'Başla',
       turn: null,
+      permissionState: null,//0 izin isteniyor,null izin verilmedi,2 izin verildi
     };
+    
+    this.permissionOkey = this.permissionOkey.bind(this);
+    this.permissionFail = this.permissionFail.bind(this);
   }
 
   initializeTimer(deadline) {
@@ -30,10 +35,20 @@ export default class TimerEL extends Component {
   }
 
   handleGameStart() {
-    this.timerStart()
-    this.props.handleGameStart();
+    this.setState({ permissionState: 0 });
   }
 
+  permissionOkey() {
+    this.setState({ permissionState: 2});
+    console.log('İzin verildi Oyun Başlasın')
+     this.timerStart()
+    this.props.handleGameStart();
+  }
+  permissionFail(){
+    console.log('İzin verilmedi')
+    this.setState({ permissionState: null});
+    alert('İzin vermeden oyunu oynayamazsınız.')
+  }
   handleGameOver() {
     this.resetTimer();
     this.props.handleGameOver();
@@ -72,6 +87,13 @@ export default class TimerEL extends Component {
   render() {
     return (
       <div className="col-sm">
+       {this.state.permissionState === 0 ? (
+          <PermissonModal 
+          permissionFail= {this.permissionFail}
+          permissionOkey= {this.permissionOkey}/>
+        ) : (
+          ''
+        )}
         {this.props.isActiveGame ? (
           <div className="col-md-12 timer spacing ">
             {this.state.timer + ' ' + this.state.timerText}

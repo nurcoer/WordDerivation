@@ -5,10 +5,12 @@ import NameListEl from '../toolbox/NameListEl';
 import NameTextEl from '../toolbox/NameTextEl';
 import TimerEl from '../toolbox/TimerEL';
 import GameModal from '../toolbox/modals/GameModal';
+
 import { firstRound, computerTurn, userTurn } from '../../gameStatus/gameStart';
 
 import UserTurn from '../toolbox/TurnComponent/UserTurn';
 import ComputerTurn from '../toolbox/TurnComponent/ComputerTurn';
+import { textToSpeaker } from '../../helpers/speak';
 
 export default class wordDerivation extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ export default class wordDerivation extends Component {
       isActiveGame: false, // oyun başladımı başlamadımı
       turn: null, //'' oyun başlamadı ,1 PC sırası ,0 kullanıcı sırası
       name: '', //şuan aktif olan isim
-      gameStatus: 'start', // ready oyuna hazır,start oyun başladı,win kullanıcı kazandı, gameOver kullanıcıkaybetti.
+      gameStatus: 'start', // ready oyuna hazır,start oyun başladı,win kullanıcı kazandı, gameOver kullanıcı kaybetti
       usedNames: [],
     };
     this.handleGameStart = this.handleGameStart.bind(this);
@@ -32,7 +34,6 @@ export default class wordDerivation extends Component {
   }
 
   handleGameOver() {
-    this.setState({ usedNames: [] });
     let gameStatus = this.state.turn === 1 ? 'win' : 'gameOver';
     this.stateChange('', '', gameStatus, false);
   }
@@ -42,7 +43,11 @@ export default class wordDerivation extends Component {
     if (this.state.turn === 1) {
       (async () => {
         let response = await computerTurn(name, this.state.usedNames);
-        this.handleResponse(response, 0);
+        textToSpeaker(
+          response === false ? 'kabul ediyorum kazandın' : response
+        ).then(() => {
+          this.handleResponse(response, 0);
+        });
       })();
     } else {
       (async () => {
@@ -81,9 +86,14 @@ export default class wordDerivation extends Component {
           <GameModal
             title="Game Over"
             body="Lütfen Başka bir zaman tekrar deneyiniz"
+            usedNames={this.state.usedNames}
           />
         ) : this.state.gameStatus === 'win' ? (
-          <GameModal title="Winnnnn" body="Kaznadın Bro" />
+          <GameModal
+            title="Winnnnn"
+            body="Kaznadın Bro"
+            usedNames={this.state.usedNames}
+          />
         ) : (
           ''
         )}

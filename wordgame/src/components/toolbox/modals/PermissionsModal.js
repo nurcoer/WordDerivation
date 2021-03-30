@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-export default class GameModal extends Component {
+export default class PermissonModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,27 +27,30 @@ export default class GameModal extends Component {
           animation={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>{this.props.title}</Modal.Title>
+            <Modal.Title>!!İzin Lazım</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h5>{this.props.body}</h5>
-            <ul className="list-group list-group-flush">
-              {this.props.usedNames.map((usedName, index) => (
-                <li className="list-group-item" key={index}>
-                  {usedName}
-                </li>
-              ))}
-            </ul>
-          </Modal.Body>
+          <Modal.Body>bu uygulamayı kullanabilmek için micrafon kullanımına izin veriniz.</Modal.Body>
           <Modal.Footer>
+          
+            <Button
+              variant="secondary"
+              onClick={() => {
+                this.handleModal();
+                this.props.permissionFail();
+                //uyarı ver kullanıcı izin vermediği için oyuna başlayamazsınız .
+              }}
+            >
+              İzin verme
+            </Button>
             <Button
               variant="primary"
               onClick={() => {
+                this.props.permissionOkey();
+                //Oyuna başla
                 this.handleModal();
-                window.location.reload(false);
               }}
             >
-              Yeni Oyun
+              İzin ver
             </Button>
           </Modal.Footer>
         </Modal>

@@ -12,7 +12,7 @@ export default class NameListEl extends Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Word</th>
+              <th scope="col">Kelime</th>
             </tr>
           </thead>
           <tbody id="table-tbody">

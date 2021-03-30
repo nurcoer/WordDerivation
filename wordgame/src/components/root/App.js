@@ -6,7 +6,7 @@ function App() {
     <div className="container">
        <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#home">
-            Word Derivations
+            Son Harf Oyunu
           </Navbar.Brand >
        </Navbar>
        <WordDerivation/>

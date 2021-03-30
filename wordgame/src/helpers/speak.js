@@ -1,7 +1,7 @@
-export const textToSpeaker = (name) => {
+export async function  textToSpeaker (name) {
   let synth = window.speechSynthesis;
   let toSpeak = new window.SpeechSynthesisUtterance(name);
-  toSpeak.lang = 'tr';
+  toSpeak.lang = 'tr-TR';
   toSpeak.volume =1;
-  synth.speak(toSpeak);
+  await  synth.speak(toSpeak);
 };

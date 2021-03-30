@@ -10,10 +10,10 @@ export default class NameTextEl extends Component {
             <div className="p-3 bg-dark my-2 rounded ">
                 <Toast className="wordInput ">
                 <ToastHeader>
-                    <h1>{this.props.name?this.props.name:'Name'}</h1>
+                    <h1>{this.props.name?this.props.name:'İsim'}</h1>
                 </ToastHeader>
                 <ToastBody>
-                   <h1> {this.props.name?this.props.name.slice(-1):'Char'}</h1>
+                   <h1> {this.props.name?this.props.name.slice(-1):'Karakter'}</h1>
                 </ToastBody>
                 </Toast>
             </div>

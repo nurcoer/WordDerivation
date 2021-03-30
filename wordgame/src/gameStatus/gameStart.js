@@ -1,19 +1,18 @@
-import GameInit from './gameInit';
+
 import { createName } from '../gameTurn/computerTurn';
 import { ListenUser } from '../gameTurn/userTurn';
 import { checkName, checkIsExistName } from '../helpers/nameOperations';
-import { textToSpeaker } from '../helpers/speak';
+import { getFirstName } from '../helpers/nameOperations';
+
 
 export const firstRound = () => {
-  let gameInit = new GameInit();
-  let name = gameInit.permissionOkey();
+  let name = getFirstName('');
   return name;
 };
 export async function computerTurn(name, usedNames) {
   let lastChar = name.slice(-1);
   let resultName = await createName(lastChar, usedNames);
   let result = checkName(resultName[0], usedNames, lastChar);
-  textToSpeaker(resultName[0]);
   console.log(
     ` ${resultName} ${result} bilgisayarın ürettiği isim ve kontrol edilme sonucu`
   );

@@ -3,21 +3,9 @@ import React from 'react';
 export const ListenUser=()=> {
   let name;
   let recognition = new (window.SpeechRecognition ||
-    window.webkitSpeechRecognition ||
-    window.mozSpeechRecognition ||
-    window.msSpeechRecognition)();
+    window.webkitSpeechRecognition )();
   recognition.lang = 'tr-Tr';
   recognition.start();
-
-
-  let timeleft = 9;
-  let ListenTimer = setInterval(function () {
-    if (timeleft <= 0) {
-      recognition.stop();
-      clearInterval(ListenTimer);
-    }
-    timeleft -= 1;
-  }, 1000);
 
 
  return new Promise(resolve => {
