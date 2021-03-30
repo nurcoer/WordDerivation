@@ -1,9 +1,10 @@
-import React from 'react';
 
 export const ListenUser=()=> {
   let name;
   let recognition = new (window.SpeechRecognition ||
-    window.webkitSpeechRecognition )();
+    window.webkitSpeechRecognition ||
+    window.mozSpeechRecognition ||
+    window.msSpeechRecognition)();
   recognition.lang = 'tr-Tr';
   recognition.start();
 

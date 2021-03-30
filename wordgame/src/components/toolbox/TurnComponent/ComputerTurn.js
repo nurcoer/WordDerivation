@@ -6,7 +6,7 @@ export default class ComputerTurn extends Component {
   render() {
     return (
       <div className="col-sm">
-        <Card className="col-md-6  bg-dark text-white space">
+        <Card className="col-md-6  space" color="info">
           <CardImg
             top
             width="100%"

@@ -6,9 +6,9 @@ export default class UserTurn extends Component {
   render() {
     return (
       <div className="col-sm">
-        <Card className="col-md-6 space bg-dark text-white  ">
+        <Card className="col-md-6 space  " color="danger">
           <CardImg
-            top
+            bottom
             width="100%"
             src="../../../assets/userTurn.png"
             alt="İmage Not Found"
